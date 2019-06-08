@@ -1,24 +1,30 @@
 // variables
 var mainDispText;
 var mainDisp;
-
-
+var testRedJmp;
+var testBlkJmp;
+var testWin;
 
 // DOM 
 mainDisp = document.getElementById('maindisp');
 mainDispText = document.getElementById('maindisptext');
+testRedJmp = document.getElementById('testredjump');
+testBlkJmp = document.getElementById('testblackjump');
+testWin = document.getElementById('testwin');
+
 
 // event listeners
 
 mainDisp.addEventListener('click', startGame);
+testRedJmp.addEventListener('click', redJump);
+testBlkJmp.addEventListener('click', blkJump);
+testWin.addEventListener('click', winGame);
 
 
 // functions
 
 function init(){
-    console.log(mainDispText);
     mainDispText.textContent = "Start Game!";
-    console.log(mainDispText);
 }
 
 function startGame(){
@@ -26,8 +32,17 @@ function startGame(){
     mainDisp.classList.add("hidestartgame");
 }
 
+function redJump(){
+    console.log("red jump");
+}
 
+function blkJump(){
+    console.log("blk jump");
+}
 
+function winGame(){
+    console.log("win game");
+}
 
 
 init();
