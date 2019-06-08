@@ -1,0 +1,49 @@
+body {
+    background-color: #232323
+}
+
+#board {
+    background-color: darkslategray;
+    display: grid;
+    grid-template: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr / 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    height: 450px;
+    width: 450px;
+    margin: 0 auto;
+    grid-gap: 5px;
+    border: 5px solid darkslategray;
+
+}
+
+.red, .black {
+}
+.red {
+    background-color: #661111;
+
+}
+
+.black {
+    background-color: #332222
+}
+
+.showstartgame {
+    background-color: lemonchiffon;
+    height: 50px;
+    width: 100px;
+    margin: auto;
+    display: block;
+
+}
+
+.hidestartgame {
+    display: none;
+}
+
+#maindisp {
+    margin: 10px auto;
+}
+#maindisptext {
+    margin: auto;
+    text-align: center;
+    color: darkslategray;
+    font-size: 22px;
+}
