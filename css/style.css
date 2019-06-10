@@ -14,14 +14,14 @@ body {
 
 }
 
-.red, .blk {
+.light, .dark {
 }
-.red {
+.light {
     background-color:#661111;
 
 }
 
-.blk {
+.dark {
     background-color: #332222
 }
 
@@ -31,6 +31,14 @@ body {
 
 .legal {
     background-color: #FFC0CB;
+}
+
+.vacant {
+
+}
+
+.occupied {
+
 }
 
 .showstartgame {
