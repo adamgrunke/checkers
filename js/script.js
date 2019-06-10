@@ -73,10 +73,50 @@ function highlightSelectedSquare(square){
 }
 
 function moveOptions(square) {
+    // square is e.target.classList
+    
     let col = square[0].split('').pop();
     let row = square[1].split('').pop();
-    console.log("row: " + row + ", col: " + col);    
+    let rowMoveOption = (parseInt(row))+1;
+    let colMoveOption1 = square[0];
+    let colMoveOption2 = "col" + ((parseInt(col))+1); // temporary. only works for some squares.
 
+    //hightlight optional moves
+    
+    
+    // determine if there are one or two column options
+    // switch (true) {
+    //     case ((parseInt(col) === 1) && (rowMoveOption % 2 !== 0)):
+    //         console.log('single option right. (col1)');
+    //         break;
+    //     case ((parseInt(col) === 4) && (rowMoveOption % 2 === 0)):
+    //         console.log('single option left. (col4)');
+    //         break;
+    //     case ((parseInt(col) === 1) && (rowMoveOption % 2 === 0)):
+    //     case ((parseInt(col) === 4) && (rowMoveOption % 2 !== 0)):
+    //     case (parseInt(col) === 2):
+    //     case (parseInt(col) === 3):
+    //         console.log('double option for columns');
+    //         break;
+    // }
+    
+    
+    
+    rowMoveOption = "row" + rowMoveOption;
+    
+    
+    let a = document.querySelector("." + rowMoveOption + "." + colMoveOption1).classList;
+    let b = document.querySelector("." + rowMoveOption + "." + colMoveOption2).classList;
+  
+
+    
+    a.remove('red');
+    b.remove('red');
+    a.add('legal');
+    b.add('legal');
+    // document.querySelector(square.value.contains(".col2.row2"))
+
+    
 
 }
 
