@@ -4,6 +4,7 @@ var mainDisp;
 var testRedJmp;
 var testBlkJmp;
 var testWin;
+var board;
 
 // DOM 
 mainDisp = document.getElementById('maindisp');
@@ -11,6 +12,8 @@ mainDispText = document.getElementById('maindisptext');
 testRedJmp = document.getElementById('testredjump');
 testBlkJmp = document.getElementById('testblackjump');
 testWin = document.getElementById('testwin');
+board = document.getElementById("board");
+
 
 
 // event listeners
@@ -19,6 +22,11 @@ mainDisp.addEventListener('click', startGame);
 testRedJmp.addEventListener('click', redJump);
 testBlkJmp.addEventListener('click', blkJump);
 testWin.addEventListener('click', winGame);
+board.addEventListener('click', function(e){
+    // console.log(e.target.classList);
+    highlightSquare(e.target.classList);
+});
+
 
 
 // functions
@@ -44,6 +52,12 @@ function winGame(){
     console.log("win game");
 }
 
+function highlightSquare(classList){
+    console.log(classList);
+    
+}
+
+// *********
 
 init();
 
