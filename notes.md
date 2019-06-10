@@ -32,8 +32,10 @@ Column 1 is on the left and column 4 is on the right.
 
 TODO: 
 Disable  buttons until game is started. 
-Nav check
-Highlight squares - selected and legal moves
+Nav check - determine legal move options. 
+DONE - Highlight squares - 
+DONE! do not highlight black square when selected.
+Highlight only selected and legal moves
 Toggle players.
 Modify legal move checks for opposite direction player.
 Tally of players remaining.
@@ -44,4 +46,6 @@ Animation of squres for legal moves.
 Animate movement of checker pieces.
 Click and drag? 
 
-check for black square
+
+
+Add hightlighted mouse over squares with pieces on them and then legal move options.
