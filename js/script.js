@@ -1,38 +1,42 @@
 // variables
 var mainDispText;
 var mainDisp;
-var testRedJmp;
-var testBlkJmp;
-var testWin;
+var testJmpRed;
+var testJmpBlk;
+var offerDraw;
 var board;
+var redCount = 12;
+var blkCount = 12;
+var prevSquare = null;
 
 // DOM 
 mainDisp = document.getElementById('maindisp');
 mainDispText = document.getElementById('maindisptext');
-testRedJmp = document.getElementById('testredjump');
-testBlkJmp = document.getElementById('testblackjump');
-testWin = document.getElementById('testwin');
+testJmpRed = document.getElementById('testjumpred');
+testJmpBlk = document.getElementById('testjumpblk');
+offerDraw = document.getElementById('offerdraw');
 board = document.getElementById("board");
-
-
 
 // event listeners
 
 mainDisp.addEventListener('click', startGame);
-testRedJmp.addEventListener('click', redJump);
-testBlkJmp.addEventListener('click', blkJump);
-testWin.addEventListener('click', winGame);
+testJmpRed.addEventListener('click', jumpRed);
+testJmpBlk.addEventListener('click', jumpBlk);
+offerDraw.addEventListener('click', drawGame);
 board.addEventListener('click', function(e){
     // console.log(e.target.classList);
-    highlightSquare(e.target.classList);
+    highlightSelectedSquare(e.target);
 });
-
-
 
 // functions
 
 function init(){
     mainDispText.textContent = "Start Game!";
+    redCount = 12;
+    blkCount = 12;
+    offerDraw.textContent = "Offer Draw"
+    prevSquare = null;
+
 }
 
 function startGame(){
@@ -40,21 +44,63 @@ function startGame(){
     mainDisp.classList.add("hidestartgame");
 }
 
-function redJump(){
-    console.log("red jump");
+function jumpRed(){
+    redCount--;
+    console.log("red jump! red count = " + redCount );
+    winCheck();
 }
 
-function blkJump(){
-    console.log("blk jump");
+function jumpBlk(){
+    blkCount--;
+    console.log("blk jump! blk count = " + blkCount);
+    winCheck();
 }
 
-function winGame(){
-    console.log("win game");
+function drawGame(){
+    if (offerDraw.textContent === "Offer Draw") {
+        console.log("draw offered");
+        offerDraw.textContent = "Confirm Draw";
+    }
+    else if (offerDraw.textContent === "Confirm Draw") {
+        endGame('draw');
+    }
 }
 
-function highlightSquare(classList){
-    console.log(classList);
+function highlightSelectedSquare(square){
     
+    console.log(square);
+    
+    if (prevSquare) {
+        console.log('test')
+        square.classList.remove('red');
+        square.classList.add('bright');
+        prevSquare = square;
+    }
+    square.classList.remove('red');
+    square.classList.add('bright');
+}
+
+
+function winCheck(){
+    if (blkCount === 0) {
+        endGame("red");
+    }
+    else if (redCount === 0) {
+        endGame("blk");
+    }
+}
+
+function endGame(winner) {
+    if (winner === "blk"){
+        console.log("Black wins!");
+    }
+    else if (winner === "red"){
+        console.log("Red wins!");
+    }
+    else if (winner === "draw") {
+        console.log("Draw Confirmed - Game Over")
+        console.log("press reset to play again");
+    }
 }
 
 // *********

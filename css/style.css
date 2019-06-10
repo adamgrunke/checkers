@@ -14,15 +14,19 @@ body {
 
 }
 
-.red, .black {
+.red, .blk {
 }
 .red {
     background-color:#661111;
 
 }
 
-.black {
+.blk {
     background-color: #332222
+}
+
+.bright {
+    background-color: #FF1111;
 }
 
 .showstartgame {
