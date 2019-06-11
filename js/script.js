@@ -10,6 +10,10 @@ var blkCount = 12;
 var prevSquare = null;
 var prevMove1 = 0;
 var prevMove2 = 0;
+var row;
+var col;
+var squareIndex;
+
 
 board = document.getElementById("board");
 
@@ -432,9 +436,8 @@ testJmpRed.addEventListener('click', jumpRed);
 testJmpBlk.addEventListener('click', jumpBlk);
 offerDraw.addEventListener('click', drawGame);
 board.addEventListener('click', function(e){
-    // highlightSelectedSquare(e.target.classList);
     highlightSelectedSquare(e.target);
-    // generateMoveOptions(e.target.classList);
+    generateMoveOptions(e.target);
 });
 
 document.addEventListener('DOMContentLoaded', function(){
@@ -492,15 +495,7 @@ function jumpBlk(){
 function highlightSelectedSquare(location){
     // location -> e.target
     //  console.log(Array.from(square.parentNode.children).indexOf(square));
-    let squareIndex;
-    if (location.nodeName === 'DIV'){
-        squareIndex = Array.from(board.children).indexOf(location);
-    } else {
-        squareIndex = Array.from(board.children).indexOf(location.parentNode);
-    }
-
-    let row = 'row' + Math.floor(squareIndex / 8);
-    let col = 'col' + squareIndex % 8;
+    calculateLocationIndex(location)
     let color = gameBoard[row][col].squareColor;
     let occupied = gameBoard[row][col].occupied
     let square = board.children[squareIndex].classList
@@ -516,21 +511,48 @@ function highlightSelectedSquare(location){
     }
 }
 
+function calculateLocationIndex(location){
+    if (location.nodeName === 'DIV'){
+        squareIndex = Array.from(board.children).indexOf(location);
+    } else {
+        squareIndex = Array.from(board.children).indexOf(location.parentNode);
+    }
+
+    row = 'row' + Math.floor(squareIndex / 8);
+    col = 'col' + squareIndex % 8;
+}
+
 function generateMoveOptions(square) {
     // square is e.target.classList
+    // relies on hightlightSelectedSquare function to call on caclulateLocationIndex
+
+
+
+
     if (prevMove1 !== 0){
         prevMove1.remove('legal')
         prevMove2.remove('legal')
         prevMove1.add('light')
         prevMove2.add('light')
     }
-    let row = square[1].split('').pop();
-    let col = square[0].split('').pop();
-    let colNum = parseInt(col);
-    let rowNum = parseInt(row);
+    let rowTemp = row.split('').pop();
+    let colTemp = col.split('').pop();
+    let colNum = parseInt(colTemp);
+    let rowNum = parseInt(rowTemp);
     
-    let rowMoveOption = (parseInt(row))+1;
-    let colMoveOption1 = square[0];
+    // black player
+    let rowMoveOption = (parseInt(rowNum))+1;
+    let colMoveOption1 = (parseInt(colNum))-1;
+    let colMoveOption2 = (parseInt(colNum))+1;
+    // red player
+    let rowMoveOption = (parseInt(rowNum))+1;
+    let colMoveOption1 = (parseInt(colNum))-1;
+    let colMoveOption2 = (parseInt(colNum))+1;
+
+
+
+    console.log(rowMoveOption, colMoveOption1, colMoveOption2)
+
     rowMoveOption = "row" + rowMoveOption;
     
     let a = document.querySelector("." + rowMoveOption + "." + colMoveOption1).classList;
@@ -548,7 +570,7 @@ function generateMoveOptions(square) {
             
             ) {
 
-            let colMoveOption2 = (parseInt(col)); // temporary. only works for some squares.
+        let colMoveOption2 = (parseInt(col)); // temporary. only works for some squares.
         if (row % 2 === 0) {
             colMoveOption2 = colMoveOption2 - 1;
         } else {
