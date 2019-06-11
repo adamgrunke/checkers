@@ -11,13 +11,410 @@ var prevSquare = null;
 var prevMove1 = 0;
 var prevMove2 = 0;
 
-// var board = {
-//     row1: {
-//         col1: {
+var board = {
+    row1: {
+        col1: {
+            grid_location: board.child[56],
+            player: 'blk',
+            squareColor: 'dark',
+            occupied: false
+        },
+        col2: {
+            grid_location: board.child[57],
+            player: 'red',
+            squareColor: 'light',
+            occupied: true
+        },
+        col3: {
+            grid_location: board.child[58],
+            player: 'blk',
+            squareColor: 'dark',
+            occupied: false
+        },
+        col4: {
+            grid_location: board.child[59],
+            player: 'red',
+            squareColor: 'light',
+            occupied: true
+        },
+        col5: {
+            grid_location: board.child[60],
+            player: 'blk',
+            squareColor: 'dark',
+            occupied: false
+        },
+        col6: {
+            grid_location: board.child[61],
+            player: 'red',
+            squareColor: 'light',
+            occupied: true
+        },
+        col7: {
+            grid_location: board.child[62],
+            player: 'blk',
+            squareColor: 'dark',
+            occupied: false
+        },
+        col8: {
+            grid_location: board.child[63],
+            player: 'red',
+            squareColor: 'light',
+            occupied: true
+        },
+        },
+    row2: {
+        col1: {
+            grid_location: board.child[48],
+            player: 'red',
+            squareColor: 'light',
+            occupied: true
+        },
+        col2: {
+            grid_location: board.child[49],
+            player: 'blk',
+            squareColor: 'dark',
+            occupied: false
+        },
+        col3: {
+            grid_location: board.child[50],
+            player: 'red',
+            squareColor: 'light',
+            occupied: true
+        },
+        col4: {
+            grid_location: board.child[51],
+            player: 'blk',
+            squareColor: 'dark',
+            occupied: false
+        },
+        col5: {
+            grid_location: board.child[52],
+            player: 'red',
+            squareColor: 'light',
+            occupied: true
+        },
+        col6: {
+            grid_location: board.child[53],
+            player: 'blk',
+            squareColor: 'dark',
+            occupied: false
+        },
+        col7: {
+            grid_location: board.child[54],
+            player: 'red',
+            squareColor: 'light',
+            occupied: true
+        },
+        col8: {
+            grid_location: board.child[55],
+            player: 'blk',
+            squareColor: 'dark',
+            occupied: false
+        }
+        },    
+    row3: {
+        col1: {
+            grid_location: board.child[40],
+            player: 'blk',
+            squareColor: 'dark',
+            occupied: false
+        },
+        col2: {
+            grid_location: board.child[41],
+            player: 'red',
+            squareColor: 'light',
+            occupied: true
+        },
+        col3: {
+            grid_location: board.child[42],
+            player: 'blk',
+            squareColor: 'dark',
+            occupied: false
+        },
+        col4: {
+            grid_location: board.child[43],
+            player: 'red',
+            squareColor: 'light',
+            occupied: true
+        },
+        col5: {
+            grid_location: board.child[44],
+            player: 'blk',
+            squareColor: 'dark',
+            occupied: false
+        },
+        col6: {
+            grid_location: board.child[45],
+            player: 'red',
+            squareColor: 'light',
+            occupied: true
+        },
+        col7: {
+            grid_location: board.child[46],
+            player: 'blk',
+            squareColor: 'dark',
+            occupied: false
+        },
+        col8: {
+            grid_location: board.child[47],
+            player: 'red',
+            squareColor: 'light',
+            occupied: true
+        },
+        },
+    row4: {
+        col1: {
+            grid_location: board.child[32],
+            player: 'red',
+            squareColor: 'light',
+            occupied: true
+        },
+        col2: {
+            grid_location: board.child[33],
+            player: 'blk',
+            squareColor: 'dark',
+            occupied: false
+        },
+        col3: {
+            grid_location: board.child[34],
+            player: 'red',
+            squareColor: 'light',
+            occupied: true
+        },
+        col4: {
+            grid_location: board.child[35],
+            player: 'blk',
+            squareColor: 'dark',
+            occupied: false
+        },
+        col5: {
+            grid_location: board.child[36],
+            player: 'red',
+            squareColor: 'light',
+            occupied: true
+        },
+        col6: {
+            grid_location: board.child[37],
+            player: 'blk',
+            squareColor: 'dark',
+            occupied: false
+        },
+        col7: {
+            grid_location: board.child[38],
+            player: 'red',
+            squareColor: 'light',
+            occupied: true
+        },
+        col8: {
+            grid_location: board.child[39],
+            player: 'blk',
+            squareColor: 'dark',
+            occupied: false
+        }
+        },    
+    row5: {
+        col1: {
+            grid_location: board.child[24],
+            player: 'blk',
+            squareColor: 'dark',
+            occupied: false
+        },
+        col2: {
+            grid_location: board.child[25],
+            player: 'red',
+            squareColor: 'light',
+            occupied: true
+        },
+        col3: {
+            grid_location: board.child[26],
+            player: 'blk',
+            squareColor: 'dark',
+            occupied: false
+        },
+        col4: {
+            grid_location: board.child[27],
+            player: 'red',
+            squareColor: 'light',
+            occupied: true
+        },
+        col5: {
+            grid_location: board.child[28],
+            player: 'blk',
+            squareColor: 'dark',
+            occupied: false
+        },
+        col6: {
+            grid_location: board.child[29],
+            player: 'red',
+            squareColor: 'light',
+            occupied: true
+        },
+        col7: {
+            grid_location: board.child[30],
+            player: 'blk',
+            squareColor: 'dark',
+            occupied: false
+        },
+        col8: {
+            grid_location: board.child[31],
+            player: 'red',
+            squareColor: 'light',
+            occupied: true
+        },
+        },
+    row6: {
+        col1: {
+            grid_location: board.child[16],
+            player: 'red',
+            squareColor: 'light',
+            occupied: true
+        },
+        col2: {
+            grid_location: board.child[17],
+            player: 'blk',
+            squareColor: 'dark',
+            occupied: false
+        },
+        col3: {
+            grid_location: board.child[18],
+            player: 'red',
+            squareColor: 'light',
+            occupied: true
+        },
+        col4: {
+            grid_location: board.child[19],
+            player: 'blk',
+            squareColor: 'dark',
+            occupied: false
+        },
+        col5: {
+            grid_location: board.child[20],
+            player: 'red',
+            squareColor: 'light',
+            occupied: true
+        },
+        col6: {
+            grid_location: board.child[21],
+            player: 'blk',
+            squareColor: 'dark',
+            occupied: false
+        },
+        col7: {
+            grid_location: board.child[22],
+            player: 'red',
+            squareColor: 'light',
+            occupied: true
+        },
+        col8: {
+            grid_location: board.child[23],
+            player: 'blk',
+            squareColor: 'dark',
+            occupied: false
+        }
+        },    
+    row7: {
+        col1: {
+            grid_location: board.child[8],
+            player: 'blk',
+            squareColor: 'dark',
+            occupied: false
+        },
+        col2: {
+            grid_location: board.child[9],
+            player: 'red',
+            squareColor: 'light',
+            occupied: true
+        },
+        col3: {
+            grid_location: board.child[10],
+            player: 'blk',
+            squareColor: 'dark',
+            occupied: false
+        },
+        col4: {
+            grid_location: board.child[11],
+            player: 'red',
+            squareColor: 'light',
+            occupied: true
+        },
+        col5: {
+            grid_location: board.child[12],
+            player: 'blk',
+            squareColor: 'dark',
+            occupied: false
+        },
+        col6: {
+            grid_location: board.child[13],
+            player: 'red',
+            squareColor: 'light',
+            occupied: true
+        },
+        col7: {
+            grid_location: board.child[14],
+            player: 'blk',
+            squareColor: 'dark',
+            occupied: false
+        },
+        col8: {
+            grid_location: board.child[15],
+            player: 'red',
+            squareColor: 'light',
+            occupied: true
+        },
+        },
+    row8: {
+        col1: {
+            grid_location: board.child[0],
+            player: 'red',
+            squareColor: 'light',
+            occupied: true
+        },
+        col2: {
+            grid_location: board.child[1],
+            player: 'blk',
+            squareColor: 'dark',
+            occupied: false
+        },
+        col3: {
+            grid_location: board.child[2],
+            player: 'red',
+            squareColor: 'light',
+            occupied: true
+        },
+        col4: {
+            grid_location: board.child[3],
+            player: 'blk',
+            squareColor: 'dark',
+            occupied: false
+        },
+        col5: {
+            grid_location: board.child[4],
+            player: 'red',
+            squareColor: 'light',
+            occupied: true
+        },
+        col6: {
+            grid_location: board.child[5],
+            player: 'blk',
+            squareColor: 'dark',
+            occupied: false
+        },
+        col7: {
+            grid_location: board.child[6],
+            player: 'red',
+            squareColor: 'light',
+            occupied: true
+        },
+        col8: {
+            grid_location: board.child[7],
+            player: 'blk',
+            squareColor: 'dark',
+            occupied: false
+        }
+        }    
+    }
+    
 
-//         }
-//     }
-// }
 
 // DOM 
 mainDisp = document.getElementById('maindisp');
