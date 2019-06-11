@@ -41,6 +41,15 @@ body {
 
 }
 
+.gamepiece {
+    height: 40%;
+    width: 40%;
+    border-radius: 50%;
+    border: 3px solid brown;
+
+
+}
+
 .showstartgame {
     background-color: lemonchiffon;
     height: 20px;

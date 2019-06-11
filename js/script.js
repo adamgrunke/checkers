@@ -11,6 +11,14 @@ var prevSquare = null;
 var prevMove1 = 0;
 var prevMove2 = 0;
 
+// var board = {
+//     row1: {
+//         col1: {
+
+//         }
+//     }
+// }
+
 // DOM 
 mainDisp = document.getElementById('maindisp');
 mainDispText = document.getElementById('maindisptext');
@@ -27,7 +35,7 @@ testJmpBlk.addEventListener('click', jumpBlk);
 offerDraw.addEventListener('click', drawGame);
 board.addEventListener('click', function(e){
     highlightSelectedSquare(e.target.classList);
-    moveOptions(e.target.classList);
+    generateMoveOptions(e.target.classList);
 });
 
 // functions
@@ -41,6 +49,15 @@ function init(){
     prevMove1 = 0;
     prevMove2 = 0;
 
+    populateBoard();
+
+}
+
+function populateBoard() {
+    let redPopulate = [];
+    redPopulate = document.querySelectorAll("row1, light");
+    
+    console.log(redPopulate.length)
 }
 
 function startGame(){
@@ -77,7 +94,7 @@ function highlightSelectedSquare(square){
     }
 }
 
-function moveOptions(square) {
+function generateMoveOptions(square) {
     // square is e.target.classList
     if (prevMove1 !== 0){
         prevMove1.remove('legal')
@@ -89,6 +106,8 @@ function moveOptions(square) {
     let col = square[0].split('').pop();
     let colNum = parseInt(col);
     let rowNum = parseInt(row);
+
+    console.log(square[0], square[1])
     
     let rowMoveOption = (parseInt(row))+1;
     let colMoveOption1 = square[0];
@@ -96,8 +115,10 @@ function moveOptions(square) {
     
     let a = document.querySelector("." + rowMoveOption + "." + colMoveOption1).classList;
     prevMove1 = a;
-    a.remove('light');
-    a.add('legal');
+    if (!(a.contains('occupied'))){
+        a.remove('light');
+        a.add('legal');
+    }
     
         if (
             colNum === 2 || 
@@ -117,8 +138,11 @@ function moveOptions(square) {
         let b = document.querySelector("." + rowMoveOption + "." + colMoveOption2).classList;
         prevMove2 = b;
         
-        b.remove('light');
-        b.add('legal');
+        if (!(b.contains('occupied'))){
+            b.remove('light');
+            b.add('legal');
+           
+        }
         }
         
         
