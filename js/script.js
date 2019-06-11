@@ -501,25 +501,19 @@ function highlightSelectedSquare(location){
 
     let row = 'row' + Math.floor(squareIndex / 8);
     let col = 'col' + squareIndex % 8;
-    let sqr = gameBoard[row][col];
-    let color = sqr.squareColor;
-
-    if (!(color === 'dark')) {
-        console.log(board[row][col].classList)
-
+    let color = gameBoard[row][col].squareColor;
+    let occupied = gameBoard[row][col].occupied
+    let square = board.children[squareIndex].classList
+    if (!(color === 'dark') && occupied) {
+        if (prevSquare.value){
+            toggleColor(prevSquare, "bright", "light");
+            toggleColor(square, "light", "bright");
+            prevSquare = square;
+        } else {
+            toggleColor(square, "light", "bright");
+            prevSquare = square;
+        }
     }
-
-
-    // if (!(square.contains("dark"))) {
-    //     if (prevSquare.value){
-    //         toggleColor(prevSquare, "bright", "light");
-    //         toggleColor(square, "light", "bright");
-    //         prevSquare = square;
-    //     } else {
-    //         toggleColor(square, "light", "bright");
-    //         prevSquare = square;
-    //     }
-    // }
 }
 
 function generateMoveOptions(square) {
