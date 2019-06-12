@@ -49,3 +49,9 @@ Click and drag?
 
 
 Add hightlighted mouse over squares with pieces on them and then legal move options.
+
+
+
+row 13 442 468 469 470 531 532 555 570
+
+col 14 442 531 532 556 571

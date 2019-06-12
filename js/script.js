@@ -10,10 +10,13 @@ var blkCount = 12;
 var prevSquare = null;
 var prevMove1 = 0;
 var prevMove2 = 0;
-var row;
-var col;
+var rowCur;
+var colCur;
 var squareIndex;
-
+var currentPlayer = "red";
+var jumpPossible = "false";
+var currentLocation = [];
+var previousLocation = [];
 
 board = document.getElementById("board");
 
@@ -437,10 +440,11 @@ testJmpBlk.addEventListener('click', jumpBlk);
 offerDraw.addEventListener('click', drawGame);
 board.addEventListener('click', function(e){
     calculateLocationIndex(e.target);
-    if (gameBoard[row][col].occupied){
+    // if (gameBoard[rowCur][colCur].occupied){
         highlightSelectedSquare(e.target);
         generateMoveOptions(e.target);
-    }
+        moveGamePiece();
+    // }
 
 });
 
@@ -457,13 +461,18 @@ function init(){
     prevSquare = 0;
     prevMove1 = 0;
     prevMove2 = 0;
+    currentPlayer = 'red';
+    jumpPossible = "false";
+    currentLocation = 0;
+    previousLocation = 0;
+
 }
 
 function createBoard() {
+    
     for (let row in gameBoard){
         for (let col in gameBoard[row]){
             let square = gameBoard[row][col]
-            // console.log(square)
             square.grid_location.classList.add(square.squareColor)
             if (square.player === 'blk' && square.occupied === true){
                 let checkerElement = document.createElement("img");
@@ -474,14 +483,65 @@ function createBoard() {
                 checkerElement.src = "img/red_checker.png";
                 square.grid_location.appendChild(checkerElement)
             }
+
         
         }
     }
 }
 
+
 function startGame(){
     mainDisp.classList.remove('showstartgame');
     mainDisp.classList.add("hidestartgame");
+}
+
+function moveGamePiece() {
+    // if previous square selected contained a currentPlayer piece AND
+    // there are move options AND the current selected square is one of the move options THEN
+    // remove the image from the previous square and add the image to the current square.
+    // update occupied to false and player to none in the previous square.
+    // update occupied to true and player to the currentPlayer value in the current square.
+    // this could be a function - updateSquare(newPosition, oldPosition, player)
+    
+        if (previousLocation) {
+
+        gameBoard[previousLocation[0]][previousLocation[1]].occupied = false;
+        gameBoard[previousLocation[0]][previousLocation[1]].player = 'none';
+        let temp = gameBoard[previousLocation[0]][previousLocation[1]].grid_location;
+        // let temp = board.children[previousLocation[2]]
+        console.log(previousLocation)
+        let checkerImg = temp.removeChild(temp.firstChild)
+        // let checkerImg = board.children[previousLocation[2]].removeChild(board.children[previousLocation[2]])
+        
+        // let oldSpot = gameBoard[previousLocation[0]][previousLocation[1]].grid_location
+        // let newSpot = gameBoard[currentLocation[0]][currentLocation[1]].grid_location
+        
+
+
+
+        gameBoard[currentLocation[0]][currentLocation[1]].occupied = true;
+        gameBoard[currentLocation[0]][currentLocation[1]].player = currentPlayer;
+        
+        gameBoard[currentLocation[0]][currentLocation[1]].grid_location.appendChild(checkerImg)
+        
+      
+
+    }
+    
+
+
+}
+
+function togglePlayer(){
+    
+    if (!jumpPossible) {
+        if (currentPlayer === 'red') {
+            currentPlayer = 'blk';
+        } else {
+            currentPlayer = 'red';
+        };
+
+    }
 }
 
 function jumpRed(){
@@ -496,12 +556,30 @@ function jumpBlk(){
     winCheck();
 }
 
+function calculateLocationIndex(location){
+    // location -> e.target
+    // global variables: squareIndex, board, rowCur, colCur
+    if (location.nodeName === 'DIV'){
+        squareIndex = Array.from(board.children).indexOf(location);
+    } else {
+        squareIndex = Array.from(board.children).indexOf(location.parentNode);
+    }
+
+    rowCur = 'row' + Math.floor(squareIndex / 8); 
+    colCur = 'col' + squareIndex % 8;
+    
+    previousLocation = currentLocation;
+    currentLocation = [rowCur,colCur, squareIndex];
+}
+
 function highlightSelectedSquare(location){
     // location -> e.target
     //  console.log(Array.from(square.parentNode.children).indexOf(square));
-    let color = gameBoard[row][col].squareColor;
-    let occupied = gameBoard[row][col].occupied
+    let color = gameBoard[rowCur][colCur].squareColor;
+    let occupied = gameBoard[rowCur][colCur].occupied
     let square = board.children[squareIndex].classList
+    // let brightColor;
+    // let player = gameBoard[rowCur][colCur].player;
     if (!(color === 'dark') && occupied) {
         if (prevSquare.value){
             toggleColor(prevSquare, "bright", "light");
@@ -512,17 +590,6 @@ function highlightSelectedSquare(location){
             prevSquare = square;
         }
     }
-}
-
-function calculateLocationIndex(location){
-    if (location.nodeName === 'DIV'){
-        squareIndex = Array.from(board.children).indexOf(location);
-    } else {
-        squareIndex = Array.from(board.children).indexOf(location.parentNode);
-    }
-
-    row = 'row' + Math.floor(squareIndex / 8);
-    col = 'col' + squareIndex % 8;
 }
 
 function generateMoveOptions(square) {
@@ -536,8 +603,8 @@ function generateMoveOptions(square) {
     if (prevMove2 !== 0){
         toggleColor(prevMove2, 'legal', 'light');
     }
-    let rowTemp = row.split('').pop();
-    let colTemp = col.split('').pop();
+    let rowTemp = rowCur.split('').pop();
+    let colTemp = colCur.split('').pop();
     let colNum = parseInt(colTemp);
     let rowNum = parseInt(rowTemp);
     
@@ -560,7 +627,7 @@ function generateMoveOptions(square) {
     }
     if ( (colMoveOption2 <= 7) && 
     !((gameBoard["row" + rowMoveOption]['col' + colMoveOption2].occupied))) {
-        console.log(gameBoard["row" + rowMoveOption]['col' + colMoveOption2].player)
+        // console.log(gameBoard["row" + rowMoveOption]['col' + colMoveOption2].player)
         toggleColor(indexMoveOption2, 'light', 'legal');
         prevMove2 = indexMoveOption2
 }  
