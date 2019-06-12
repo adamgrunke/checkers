@@ -436,8 +436,12 @@ testJmpRed.addEventListener('click', jumpRed);
 testJmpBlk.addEventListener('click', jumpBlk);
 offerDraw.addEventListener('click', drawGame);
 board.addEventListener('click', function(e){
-    highlightSelectedSquare(e.target);
-    generateMoveOptions(e.target);
+    calculateLocationIndex(e.target);
+    if (gameBoard[row][col].occupied){
+        highlightSelectedSquare(e.target);
+        generateMoveOptions(e.target);
+    }
+
 });
 
 document.addEventListener('DOMContentLoaded', function(){
@@ -495,7 +499,6 @@ function jumpBlk(){
 function highlightSelectedSquare(location){
     // location -> e.target
     //  console.log(Array.from(square.parentNode.children).indexOf(square));
-    calculateLocationIndex(location)
     let color = gameBoard[row][col].squareColor;
     let occupied = gameBoard[row][col].occupied
     let square = board.children[squareIndex].classList
@@ -523,17 +526,15 @@ function calculateLocationIndex(location){
 }
 
 function generateMoveOptions(square) {
-    // square is e.target.classList
-    // relies on hightlightSelectedSquare function to call on caclulateLocationIndex
-
-
-
+    let rowMoveOption;
+    let colMoveOption1;
+    let colMoveOption2;
 
     if (prevMove1 !== 0){
-        prevMove1.remove('legal')
-        prevMove2.remove('legal')
-        prevMove1.add('light')
-        prevMove2.add('light')
+        toggleColor(prevMove1, 'legal', 'light');
+    }
+    if (prevMove2 !== 0){
+        toggleColor(prevMove2, 'legal', 'light');
     }
     let rowTemp = row.split('').pop();
     let colTemp = col.split('').pop();
@@ -541,55 +542,28 @@ function generateMoveOptions(square) {
     let rowNum = parseInt(rowTemp);
     
     // black player
-    let rowMoveOption = (parseInt(rowNum))+1;
-    let colMoveOption1 = (parseInt(colNum))-1;
-    let colMoveOption2 = (parseInt(colNum))+1;
+    // rowMoveOption = (parseInt(rowNum))+1;
+    // colMoveOption1 = (parseInt(colNum))-1;
+    // colMoveOption2 = (parseInt(colNum))+1;
+    
     // red player
-    let rowMoveOption = (parseInt(rowNum))+1;
-    let colMoveOption1 = (parseInt(colNum))-1;
-    let colMoveOption2 = (parseInt(colNum))+1;
-
-
-
-    console.log(rowMoveOption, colMoveOption1, colMoveOption2)
-
-    rowMoveOption = "row" + rowMoveOption;
-    
-    let a = document.querySelector("." + rowMoveOption + "." + colMoveOption1).classList;
-    prevMove1 = a;
-    if (!(a.contains('occupied'))){
-        a.remove('light');
-        a.add('legal');
+    rowMoveOption = (parseInt(rowNum))-1;
+    colMoveOption1 = (parseInt(colNum))-1;
+    colMoveOption2 = (parseInt(colNum))+1;
+    let indexMoveOption1 = board.children[(rowMoveOption * 8) + colMoveOption1].classList;
+    let indexMoveOption2 = board.children[(rowMoveOption * 8) + colMoveOption2].classList;
+        
+    if ( (colMoveOption1 >= 0) &&
+        !((gameBoard["row" + rowMoveOption]['col' + colMoveOption1].occupied))) {
+            toggleColor(indexMoveOption1, 'light', 'legal');
+            prevMove1 = indexMoveOption1
     }
-    
-        if (
-            colNum === 2 || 
-            colNum === 3 ||
-            (colNum === 1 && row % 2 !== 0) ||
-            (colNum === 4 && row % 2 === 0)
-            
-            ) {
-
-        let colMoveOption2 = (parseInt(col)); // temporary. only works for some squares.
-        if (row % 2 === 0) {
-            colMoveOption2 = colMoveOption2 - 1;
-        } else {
-            colMoveOption2 = colMoveOption2 + 1;
-        }
-        colMoveOption2 = "col" + colMoveOption2;
-        let b = document.querySelector("." + rowMoveOption + "." + colMoveOption2).classList;
-        prevMove2 = b;
-        
-        if (!(b.contains('occupied'))){
-            b.remove('light');
-            b.add('legal');
-           
-        }
-        }
-        
-        
-    
-    
+    if ( (colMoveOption2 <= 7) && 
+    !((gameBoard["row" + rowMoveOption]['col' + colMoveOption2].occupied))) {
+        console.log(gameBoard["row" + rowMoveOption]['col' + colMoveOption2].player)
+        toggleColor(indexMoveOption2, 'light', 'legal');
+        prevMove2 = indexMoveOption2
+}  
 }
 
 function toggleColor(square, prevColor, newColor){
