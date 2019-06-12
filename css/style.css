@@ -13,12 +13,20 @@ body {
     border: 5px solid darkslategray;
 
 }
+/* img {
+    height: 80%;
+    width: 80%;
+} */
 
 .light, .dark {
 }
 .light {
     background-color:#661111;
 
+}
+
+.lighter {
+    background-color: #991111
 }
 
 .dark {

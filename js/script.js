@@ -17,12 +17,11 @@ var currentPlayer = "red";
 var jumpPossible = "false";
 var currentLocation = [];
 var previousLocation = [];
-var pickUp = true;
 let rowMoveOption;
 let colMoveOption1;
 let colMoveOption2;
-let indexMoveOption1 = 0;
-let indexMoveOption2 = 0;
+let move1 = 0;
+let move2 = 0;
 
 board = document.getElementById("board");
 
@@ -428,8 +427,6 @@ var gameBoard = {
         }
         }    
     }
-    
-
 
 // DOM 
 mainDisp = document.getElementById('maindisp');
@@ -473,9 +470,9 @@ function init(){
     jumpPossible = "false";
     currentLocation.length = 0;
     previousLocation.length = 0;
-    pickUp = true;
-    indexMoveOption1 = 0;
-    indexMoveOption2 = 0;
+    move1 = 0;
+    move2 = 0;
+
 }
 
 function createBoard() {
@@ -497,9 +494,28 @@ function createBoard() {
     }
 }
 
+function refreshBoard(){
+    for (let row in gameBoard){
+        for (let col in gameBoard[row]){
+            let square = gameBoard[row][col]
+            if (square.gridLocation.classList.contains('bright')) {
+                square.gridLocation.classList.remove('bright');
+                square.gridLocation.classList.add("light");
+            } else if (square.gridLocation.classList.contains('legal')) {
+                square.gridLocation.classList.remove('legal');
+                square.gridLocation.classList.add("light");
+            } else if (square.gridLocation.classList.contains('lighter')) {
+                square.gridLocation.classList.remove('lighter');
+                square.gridLocation.classList.add("light");
+            }   
+    }
+}
+}
+
 function startGame(){
     mainDisp.classList.remove('showstartgame');
     mainDisp.classList.add("hidestartgame");
+    glowCurrentPlayer();
 }
 
 function calculateLocationIndex(location){
@@ -539,44 +555,51 @@ function highlightSelectedSquare(location){
 }
 
 function generateMoveOptions(square) {
-    if (prevMove1 !== 0){
-        toggleColor(prevMove1, 'legal', 'light');
-    }
-    if (prevMove2 !== 0){
-        toggleColor(prevMove2, 'legal', 'light');
-    }
-    let rowTemp = rowCur.split('').pop();
-    let colTemp = colCur.split('').pop();
-    let colNum = parseInt(colTemp);
-    let rowNum = parseInt(rowTemp);
-    
-    // black player
-    if (gameBoard[currentLocation[0]][currentLocation[1]].player === 'blk'){
-        rowMoveOption = (parseInt(rowNum))+1;
-        colMoveOption1 = (parseInt(colNum))-1;
-        colMoveOption2 = (parseInt(colNum))+1;
-    }
-    // red player
-    if (gameBoard[currentLocation[0]][currentLocation[1]].player === 'red'){
-        rowMoveOption = (parseInt(rowNum))-1;
-        colMoveOption1 = (parseInt(colNum))-1;
-        colMoveOption2 = (parseInt(colNum))+1;
-    }
-    
-    indexMoveOption1 = board.children[(rowMoveOption * 8) + colMoveOption1].classList;
-    indexMoveOption2 = board.children[(rowMoveOption * 8) + colMoveOption2].classList;
+    if (gameBoard[currentLocation[0]][currentLocation[1]].player === currentPlayer) {
+
+        if (prevMove1 !== 0){
+            toggleColor(prevMove1, 'legal', 'light');
+        }
+        if (prevMove2 !== 0){
+            toggleColor(prevMove2, 'legal', 'light');
+        }
+        let rowTemp = rowCur.split('').pop();
+        let colTemp = colCur.split('').pop();
+        let colNum = parseInt(colTemp);
+        let rowNum = parseInt(rowTemp);
         
-    if ( (colMoveOption1 >= 0) &&
-        !((gameBoard["row" + rowMoveOption]['col' + colMoveOption1].occupied))) {
-            toggleColor(indexMoveOption1, 'light', 'legal');
-            prevMove1 = indexMoveOption1
+        // black player
+        if (gameBoard[currentLocation[0]][currentLocation[1]].player === 'blk'){
+            rowMoveOption = (parseInt(rowNum))+1;
+            colMoveOption1 = (parseInt(colNum))-1;
+            colMoveOption2 = (parseInt(colNum))+1;
+    
+        }
+        // red player
+        if (gameBoard[currentLocation[0]][currentLocation[1]].player === 'red'){
+            rowMoveOption = (parseInt(rowNum))-1;
+            colMoveOption1 = (parseInt(colNum))-1;
+            colMoveOption2 = (parseInt(colNum))+1;
+        }
+        
+        let indexMoveOption1 = board.children[(rowMoveOption * 8) + colMoveOption1].classList;
+        let indexMoveOption2 = board.children[(rowMoveOption * 8) + colMoveOption2].classList;
+        
+             
+        if ( (colMoveOption1 >= 0) &&
+            !((gameBoard["row" + rowMoveOption]['col' + colMoveOption1].occupied))) {
+                move1 = (rowMoveOption * 8) + colMoveOption1
+                toggleColor(indexMoveOption1, 'light', 'legal');
+                prevMove1 = indexMoveOption1
+        }
+        if ( (colMoveOption2 <= 7) && 
+        !((gameBoard["row" + rowMoveOption]['col' + colMoveOption2].occupied))) {
+            // console.log(gameBoard["row" + rowMoveOption]['col' + colMoveOption2].player)
+            move2 = (rowMoveOption * 8) + colMoveOption2
+            toggleColor(indexMoveOption2, 'light', 'legal');
+            prevMove2 = indexMoveOption2
+         }      
     }
-    if ( (colMoveOption2 <= 7) && 
-    !((gameBoard["row" + rowMoveOption]['col' + colMoveOption2].occupied))) {
-        // console.log(gameBoard["row" + rowMoveOption]['col' + colMoveOption2].player)
-        toggleColor(indexMoveOption2, 'light', 'legal');
-        prevMove2 = indexMoveOption2
-}  
 }
 
 function moveGamePiece() {
@@ -587,34 +610,48 @@ function moveGamePiece() {
     // update occupied to true and player to the currentPlayer value in the current square.
     // this could be a function - updateSquare(newPosition, oldPosition, player)
     
-
-
-    if (previousLocation.length !== 0 && pickUp === true) {
+    if (previousLocation.length !== 0 && 
+        ((move1 === currentLocation[2]) || (move2 === currentLocation[2])) &&
+        (gameBoard[previousLocation[0]][previousLocation[1]].player === currentPlayer))
+        {
+        
+        console.log(currentPlayer)
+        console.log(gameBoard[previousLocation[0]][previousLocation[1]].player)
         gameBoard[previousLocation[0]][previousLocation[1]].occupied = false;
         gameBoard[previousLocation[0]][previousLocation[1]].player = 'none';
         let temp = gameBoard[previousLocation[0]][previousLocation[1]].gridLocation;
-        console.log(previousLocation)
         let checkerImg = temp.removeChild(temp.firstChild)
         
         gameBoard[currentLocation[0]][currentLocation[1]].occupied = true;
         gameBoard[currentLocation[0]][currentLocation[1]].player = currentPlayer;
         gameBoard[currentLocation[0]][currentLocation[1]].gridLocation.appendChild(checkerImg)
-        
-        pickUp = false;
+        togglePlayer();
     }
 }
 
 function togglePlayer(){
-    if (!jumpPossible) {
         if (currentPlayer === 'red') {
             currentPlayer = 'blk';
-            pickUp = true;
         } else {
             currentPlayer = 'red';
-            pickUp = true;
         };
+        refreshBoard();
+        glowCurrentPlayer();
+}
+
+function glowCurrentPlayer() {
+    for (let row in gameBoard){
+        for (let col in gameBoard[row]){
+            let square = gameBoard[row][col]
+            if (square.player === currentPlayer && square.occupied === true) {
+                square.gridLocation.classList.remove('light');
+                square.gridLocation.classList.add("lighter");
+            } 
+        }
     }
 }
+
+
 function toggleColor(square, prevColor, newColor){
     square.remove(prevColor);
     square.add(newColor);
