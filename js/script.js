@@ -17,55 +17,61 @@ var currentPlayer = "red";
 var jumpPossible = "false";
 var currentLocation = [];
 var previousLocation = [];
+var pickUp = true;
+let rowMoveOption;
+let colMoveOption1;
+let colMoveOption2;
+let indexMoveOption1 = 0;
+let indexMoveOption2 = 0;
 
 board = document.getElementById("board");
 
 var gameBoard = {
     row0: {
         col0: {
-            grid_location: board.children[0],
+            gridLocation: board.children[0],
             player: 'blk',
             squareColor: 'light',
             occupied: true
         },
         col1: {
-            grid_location: board.children[1],
+            gridLocation: board.children[1],
             player: 'none',
             squareColor: 'dark',
             occupied: false
         },
         col2: {
-            grid_location: board.children[2],
+            gridLocation: board.children[2],
             player: 'blk',
             squareColor: 'light',
             occupied: true
         },
         col3: {
-            grid_location: board.children[3],
+            gridLocation: board.children[3],
             player: 'none',
             squareColor: 'dark',
             occupied: false
         },
         col4: {
-            grid_location: board.children[4],
+            gridLocation: board.children[4],
             player: 'blk',
             squareColor: 'light',
             occupied: true
         },
         col5: {
-            grid_location: board.children[5],
+            gridLocation: board.children[5],
             player: 'none',
             squareColor: 'dark',
             occupied: false
         },
         col6: {
-            grid_location: board.children[6],
+            gridLocation: board.children[6],
             player: 'blk',
             squareColor: 'light',
             occupied: true
         },
         col7: {
-            grid_location: board.children[7],
+            gridLocation: board.children[7],
             player: 'none',
             squareColor: 'dark',
             occupied: false
@@ -73,49 +79,49 @@ var gameBoard = {
         },
     row1: {
         col0: {
-            grid_location: board.children[8],
+            gridLocation: board.children[8],
             player: 'none',
             squareColor: 'dark',
             occupied: false
         },
         col1: {
-            grid_location: board.children[9],
+            gridLocation: board.children[9],
             player: 'blk',
             squareColor: 'light',
             occupied: true
         },
         col2: {
-            grid_location: board.children[10],
+            gridLocation: board.children[10],
             player: 'none',
             squareColor: 'dark',
             occupied: false
         },
         col3: {
-            grid_location: board.children[11],
+            gridLocation: board.children[11],
             player: 'blk',
             squareColor: 'light',
             occupied: true
         },
         col4: {
-            grid_location: board.children[12],
+            gridLocation: board.children[12],
             player: 'none',
             squareColor: 'dark',
             occupied: false
         },
         col5: {
-            grid_location: board.children[13],
+            gridLocation: board.children[13],
             player: 'blk',
             squareColor: 'light',
             occupied: true
         },
         col6: {
-            grid_location: board.children[14],
+            gridLocation: board.children[14],
             player: 'none',
             squareColor: 'dark',
             occupied: false
         },
         col7: {
-            grid_location: board.children[15],
+            gridLocation: board.children[15],
             player: 'blk',
             squareColor: 'light',
             occupied: true
@@ -123,49 +129,49 @@ var gameBoard = {
         },    
     row2: {
         col0: {
-            grid_location: board.children[16],
+            gridLocation: board.children[16],
             player: 'blk',
             squareColor: 'light',
             occupied: true
         },
         col1: {
-            grid_location: board.children[17],
+            gridLocation: board.children[17],
             player: 'none',
             squareColor: 'dark',
             occupied: false
         },
         col2: {
-            grid_location: board.children[18],
+            gridLocation: board.children[18],
             player: 'blk',
             squareColor: 'light',
             occupied: true
         },
         col3: {
-            grid_location: board.children[19],
+            gridLocation: board.children[19],
             player: 'none',
             squareColor: 'dark',
             occupied: false
         },
         col4: {
-            grid_location: board.children[20],
+            gridLocation: board.children[20],
             player: 'blk',
             squareColor: 'light',
             occupied: true
         },
         col5: {
-            grid_location: board.children[21],
+            gridLocation: board.children[21],
             player: 'none',
             squareColor: 'dark',
             occupied: false
         },
         col6: {
-            grid_location: board.children[22],
+            gridLocation: board.children[22],
             player: 'blk',
             squareColor: 'light',
             occupied: true
         },
         col7: {
-            grid_location: board.children[23],
+            gridLocation: board.children[23],
             player: 'none',
             squareColor: 'dark',
             occupied: false
@@ -173,49 +179,49 @@ var gameBoard = {
         },
     row3: {
         col0: {
-            grid_location: board.children[24],
+            gridLocation: board.children[24],
             player: 'none',
             squareColor: 'dark',
             occupied: false
         },
         col1: {
-            grid_location: board.children[25],
+            gridLocation: board.children[25],
             player: 'none',
             squareColor: 'light',
             occupied: false
         },
         col2: {
-            grid_location: board.children[26],
+            gridLocation: board.children[26],
             player: 'none',
             squareColor: 'dark',
             occupied: false
         },
         col3: {
-            grid_location: board.children[27],
+            gridLocation: board.children[27],
             player: 'none',
             squareColor: 'light',
             occupied: false
         },
         col4: {
-            grid_location: board.children[28],
+            gridLocation: board.children[28],
             player: 'none',
             squareColor: 'dark',
             occupied: false
         },
         col5: {
-            grid_location: board.children[29],
+            gridLocation: board.children[29],
             player: 'none',
             squareColor: 'light',
             occupied: false
         },
         col6: {
-            grid_location: board.children[30],
+            gridLocation: board.children[30],
             player: 'none',
             squareColor: 'dark',
             occupied: false
         },
         col7: {
-            grid_location: board.children[31],
+            gridLocation: board.children[31],
             player: 'none',
             squareColor: 'light',
             occupied: false
@@ -223,49 +229,49 @@ var gameBoard = {
         },    
     row4: {
         col0: {
-            grid_location: board.children[32],
+            gridLocation: board.children[32],
             player: 'none',
             squareColor: 'light',
             occupied: false
         },
         col1: {
-            grid_location: board.children[33],
+            gridLocation: board.children[33],
             player: 'none',
             squareColor: 'dark',
             occupied: false
         },
         col2: {
-            grid_location: board.children[34],
+            gridLocation: board.children[34],
             player: 'none',
             squareColor: 'light',
             occupied: false
         },
         col3: {
-            grid_location: board.children[35],
+            gridLocation: board.children[35],
             player: 'none',
             squareColor: 'dark',
             occupied: false
         },
         col4: {
-            grid_location: board.children[36],
+            gridLocation: board.children[36],
             player: 'none',
             squareColor: 'light',
             occupied: false
         },
         col5: {
-            grid_location: board.children[37],
+            gridLocation: board.children[37],
             player: 'none',
             squareColor: 'dark',
             occupied: false
         },
         col6: {
-            grid_location: board.children[38],
+            gridLocation: board.children[38],
             player: 'none',
             squareColor: 'light',
             occupied: false
         },
         col7: {
-            grid_location: board.children[39],
+            gridLocation: board.children[39],
             player: 'none',
             squareColor: 'dark',
             occupied: false
@@ -273,49 +279,49 @@ var gameBoard = {
         },
     row5: {
         col0: {
-            grid_location: board.children[40],
+            gridLocation: board.children[40],
             player: 'none',
             squareColor: 'dark',
             occupied: false
         },
         col1: {
-            grid_location: board.children[41],
+            gridLocation: board.children[41],
             player: 'red',
             squareColor: 'light',
             occupied: true
         },
         col2: {
-            grid_location: board.children[42],
+            gridLocation: board.children[42],
             player: 'none',
             squareColor: 'dark',
             occupied: false
         },
         col3: {
-            grid_location: board.children[43],
+            gridLocation: board.children[43],
             player: 'red',
             squareColor: 'light',
             occupied: true
         },
         col4: {
-            grid_location: board.children[44],
+            gridLocation: board.children[44],
             player: 'none',
             squareColor: 'dark',
             occupied: false
         },
         col5: {
-            grid_location: board.children[45],
+            gridLocation: board.children[45],
             player: 'red',
             squareColor: 'light',
             occupied: true
         },
         col6: {
-            grid_location: board.children[46],
+            gridLocation: board.children[46],
             player: 'none',
             squareColor: 'dark',
             occupied: false
         },
         col7: {
-            grid_location: board.children[47],
+            gridLocation: board.children[47],
             player: 'red',
             squareColor: 'light',
             occupied: true
@@ -323,49 +329,49 @@ var gameBoard = {
         },    
     row6: {
         col0: {
-            grid_location: board.children[48],
+            gridLocation: board.children[48],
             player: 'red',
             squareColor: 'light',
             occupied: true
         },
         col1: {
-            grid_location: board.children[49],
+            gridLocation: board.children[49],
             player: 'none',
             squareColor: 'dark',
             occupied: false
         },
         col2: {
-            grid_location: board.children[50],
+            gridLocation: board.children[50],
             player: 'red',
             squareColor: 'light',
             occupied: true
         },
         col3: {
-            grid_location: board.children[51],
+            gridLocation: board.children[51],
             player: 'none',
             squareColor: 'dark',
             occupied: false
         },
         col4: {
-            grid_location: board.children[52],
+            gridLocation: board.children[52],
             player: 'red',
             squareColor: 'light',
             occupied: true
         },
         col5: {
-            grid_location: board.children[53],
+            gridLocation: board.children[53],
             player: 'none',
             squareColor: 'dark',
             occupied: false
         },
         col6: {
-            grid_location: board.children[54],
+            gridLocation: board.children[54],
             player: 'red',
             squareColor: 'light',
             occupied: true
         },
         col7: {
-            grid_location: board.children[55],
+            gridLocation: board.children[55],
             player: 'none',
             squareColor: 'dark',
             occupied: false
@@ -373,49 +379,49 @@ var gameBoard = {
         },
     row7: {
         col0: {
-            grid_location: board.children[56],
+            gridLocation: board.children[56],
             player: 'none',
             squareColor: 'dark',
             occupied: false
         },
         col1: {
-            grid_location: board.children[57],
+            gridLocation: board.children[57],
             player: 'red',
             squareColor: 'light',
             occupied: true
         },
         col2: {
-            grid_location: board.children[58],
+            gridLocation: board.children[58],
             player: 'none',
             squareColor: 'dark',
             occupied: false
         },
         col3: {
-            grid_location: board.children[59],
+            gridLocation: board.children[59],
             player: 'red',
             squareColor: 'light',
             occupied: true
         },
         col4: {
-            grid_location: board.children[60],
+            gridLocation: board.children[60],
             player: 'none',
             squareColor: 'dark',
             occupied: false
         },
         col5: {
-            grid_location: board.children[61],
+            gridLocation: board.children[61],
             player: 'red',
             squareColor: 'light',
             occupied: true
         },
         col6: {
-            grid_location: board.children[62],
+            gridLocation: board.children[62],
             player: 'none',
             squareColor: 'dark',
             occupied: false
         },
         col7: {
-            grid_location: board.children[63],
+            gridLocation: board.children[63],
             player: 'red',
             squareColor: 'light',
             occupied: true
@@ -450,6 +456,8 @@ board.addEventListener('click', function(e){
 
 document.addEventListener('DOMContentLoaded', function(){
     createBoard();
+    init();
+
 });
 // functions
 
@@ -463,9 +471,11 @@ function init(){
     prevMove2 = 0;
     currentPlayer = 'red';
     jumpPossible = "false";
-    currentLocation = 0;
-    previousLocation = 0;
-
+    currentLocation.length = 0;
+    previousLocation.length = 0;
+    pickUp = true;
+    indexMoveOption1 = 0;
+    indexMoveOption2 = 0;
 }
 
 function createBoard() {
@@ -473,87 +483,23 @@ function createBoard() {
     for (let row in gameBoard){
         for (let col in gameBoard[row]){
             let square = gameBoard[row][col]
-            square.grid_location.classList.add(square.squareColor)
+            square.gridLocation.classList.add(square.squareColor)
             if (square.player === 'blk' && square.occupied === true){
                 let checkerElement = document.createElement("img");
                 checkerElement.src = "img/blk_checker.png";
-                square.grid_location.appendChild(checkerElement)
+                square.gridLocation.appendChild(checkerElement)
             } else if (square.player === 'red' && square.occupied === true){
                 let checkerElement = document.createElement("img");
                 checkerElement.src = "img/red_checker.png";
-                square.grid_location.appendChild(checkerElement)
+                square.gridLocation.appendChild(checkerElement)
             }
-
-        
         }
     }
 }
 
-
 function startGame(){
     mainDisp.classList.remove('showstartgame');
     mainDisp.classList.add("hidestartgame");
-}
-
-function moveGamePiece() {
-    // if previous square selected contained a currentPlayer piece AND
-    // there are move options AND the current selected square is one of the move options THEN
-    // remove the image from the previous square and add the image to the current square.
-    // update occupied to false and player to none in the previous square.
-    // update occupied to true and player to the currentPlayer value in the current square.
-    // this could be a function - updateSquare(newPosition, oldPosition, player)
-    
-        if (previousLocation) {
-
-        gameBoard[previousLocation[0]][previousLocation[1]].occupied = false;
-        gameBoard[previousLocation[0]][previousLocation[1]].player = 'none';
-        let temp = gameBoard[previousLocation[0]][previousLocation[1]].grid_location;
-        // let temp = board.children[previousLocation[2]]
-        console.log(previousLocation)
-        let checkerImg = temp.removeChild(temp.firstChild)
-        // let checkerImg = board.children[previousLocation[2]].removeChild(board.children[previousLocation[2]])
-        
-        // let oldSpot = gameBoard[previousLocation[0]][previousLocation[1]].grid_location
-        // let newSpot = gameBoard[currentLocation[0]][currentLocation[1]].grid_location
-        
-
-
-
-        gameBoard[currentLocation[0]][currentLocation[1]].occupied = true;
-        gameBoard[currentLocation[0]][currentLocation[1]].player = currentPlayer;
-        
-        gameBoard[currentLocation[0]][currentLocation[1]].grid_location.appendChild(checkerImg)
-        
-      
-
-    }
-    
-
-
-}
-
-function togglePlayer(){
-    
-    if (!jumpPossible) {
-        if (currentPlayer === 'red') {
-            currentPlayer = 'blk';
-        } else {
-            currentPlayer = 'red';
-        };
-
-    }
-}
-
-function jumpRed(){
-    redCount--;
-    console.log("red jump! red count = " + redCount );
-    winCheck();
-}
-
-function jumpBlk(){
-    blkCount--;
-    console.log("blk jump! blk count = " + blkCount);
-    winCheck();
 }
 
 function calculateLocationIndex(location){
@@ -593,10 +539,6 @@ function highlightSelectedSquare(location){
 }
 
 function generateMoveOptions(square) {
-    let rowMoveOption;
-    let colMoveOption1;
-    let colMoveOption2;
-
     if (prevMove1 !== 0){
         toggleColor(prevMove1, 'legal', 'light');
     }
@@ -609,16 +551,20 @@ function generateMoveOptions(square) {
     let rowNum = parseInt(rowTemp);
     
     // black player
-    // rowMoveOption = (parseInt(rowNum))+1;
-    // colMoveOption1 = (parseInt(colNum))-1;
-    // colMoveOption2 = (parseInt(colNum))+1;
-    
+    if (gameBoard[currentLocation[0]][currentLocation[1]].player === 'blk'){
+        rowMoveOption = (parseInt(rowNum))+1;
+        colMoveOption1 = (parseInt(colNum))-1;
+        colMoveOption2 = (parseInt(colNum))+1;
+    }
     // red player
-    rowMoveOption = (parseInt(rowNum))-1;
-    colMoveOption1 = (parseInt(colNum))-1;
-    colMoveOption2 = (parseInt(colNum))+1;
-    let indexMoveOption1 = board.children[(rowMoveOption * 8) + colMoveOption1].classList;
-    let indexMoveOption2 = board.children[(rowMoveOption * 8) + colMoveOption2].classList;
+    if (gameBoard[currentLocation[0]][currentLocation[1]].player === 'red'){
+        rowMoveOption = (parseInt(rowNum))-1;
+        colMoveOption1 = (parseInt(colNum))-1;
+        colMoveOption2 = (parseInt(colNum))+1;
+    }
+    
+    indexMoveOption1 = board.children[(rowMoveOption * 8) + colMoveOption1].classList;
+    indexMoveOption2 = board.children[(rowMoveOption * 8) + colMoveOption2].classList;
         
     if ( (colMoveOption1 >= 0) &&
         !((gameBoard["row" + rowMoveOption]['col' + colMoveOption1].occupied))) {
@@ -633,9 +579,57 @@ function generateMoveOptions(square) {
 }  
 }
 
+function moveGamePiece() {
+    // if previous square selected contained a currentPlayer piece AND
+    // there are move options AND the current selected square is one of the move options THEN
+    // remove the image from the previous square and add the image to the current square.
+    // update occupied to false and player to none in the previous square.
+    // update occupied to true and player to the currentPlayer value in the current square.
+    // this could be a function - updateSquare(newPosition, oldPosition, player)
+    
+
+
+    if (previousLocation.length !== 0 && pickUp === true) {
+        gameBoard[previousLocation[0]][previousLocation[1]].occupied = false;
+        gameBoard[previousLocation[0]][previousLocation[1]].player = 'none';
+        let temp = gameBoard[previousLocation[0]][previousLocation[1]].gridLocation;
+        console.log(previousLocation)
+        let checkerImg = temp.removeChild(temp.firstChild)
+        
+        gameBoard[currentLocation[0]][currentLocation[1]].occupied = true;
+        gameBoard[currentLocation[0]][currentLocation[1]].player = currentPlayer;
+        gameBoard[currentLocation[0]][currentLocation[1]].gridLocation.appendChild(checkerImg)
+        
+        pickUp = false;
+    }
+}
+
+function togglePlayer(){
+    if (!jumpPossible) {
+        if (currentPlayer === 'red') {
+            currentPlayer = 'blk';
+            pickUp = true;
+        } else {
+            currentPlayer = 'red';
+            pickUp = true;
+        };
+    }
+}
 function toggleColor(square, prevColor, newColor){
     square.remove(prevColor);
     square.add(newColor);
+}
+
+function jumpRed(){
+    redCount--;
+    console.log("red jump! red count = " + redCount );
+    winCheck();
+}
+
+function jumpBlk(){
+    blkCount--;
+    console.log("blk jump! blk count = " + blkCount);
+    winCheck();
 }
 
 function winCheck(){
@@ -673,5 +667,4 @@ function drawGame(){
 
 // *********
 
-init();
 
