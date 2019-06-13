@@ -509,7 +509,10 @@ function refreshBoard(){
             } else if (square.gridLocation.classList.contains('glow')) {
                 square.gridLocation.classList.remove('glow');
                 square.gridLocation.classList.add("light");
-            }   
+            }  else if (square.gridLocation.classList.contains('neon')) {
+                square.gridLocation.classList.remove('neon');
+                square.gridLocation.classList.add("light");
+            }  
     }
 }
 }
@@ -660,27 +663,37 @@ function checkForJump(){
             // remove image of opponent from opponent position. 
             // update positions appropriately with occupied true/false, player red/none
             if ((square.player === 'red')){
-                rowJumper = Math.floor(pos / 8);
-                rowOpponent = Math.floor((pos - 9) / 8);
-                rowJumpTo = Math.floor((pos - 18) / 8);
-                colJumper = pos % 8;
-                colOpponent = (pos - 9) % 8;
-                colJumpTo = (pos - 18) % 8;
+                rowJumper =  'row' + (Math.floor(pos / 8));
+                rowOpponent = 'row' + (Math.floor((pos - 9) / 8));
+                rowJumpTo = 'row' + (Math.floor((pos - 18) / 8));
+                colJumper = 'col' + (pos % 8);
+                colOpponent = 'col' + ((pos - 9) % 8);
+                colJumpTo = 'col' + ((pos - 18) % 8);
                 
-                console.log({pos})
-                console.log({rowJumper, colJumper})
-                console.log({rowOpponent, colOpponent})
-                console.log({rowJumpTo, colJumpTo})
-                console.log(gameBoard[rowOpponent][colOpponent].player )
-                console.log(gameBoard[rowJumpTo][colJumpTo].occupied)
-                // if ((gameBoard[rowOpponent][colOpponent].player === 'blk') &&
-                //     (gameBoard[rowJumpTo][colJumpTo].occupied === false)){
+                // console.log({pos})
+                // console.log({rowJumper, colJumper})
+                // console.log({rowOpponent, colOpponent})
+                // console.log({rowJumpTo, colJumpTo})
+                // console.log(gameBoard[rowOpponent][colOpponent].player )
+                // console.log(gameBoard[rowJumpTo][colJumpTo].occupied)
+                if ((gameBoard[rowOpponent][colOpponent].player === 'blk') &&
+                    (gameBoard[rowJumpTo][colJumpTo].occupied === false)){
 
-                //         console.log("Jump!!!");
-                //     }
+                        toggleColor(board.children[pos-18].classList, 'light', 'neon');
+                        
+                        setTimeout(function(){
+                            refreshBoard();
+                            let jumpedOpponent = gameBoard[rowOpponent][colOpponent].gridlocation;
+                            let opponentPiece = jumpedOpponent.removeChild(jumpedOpponent.firstChild);
+
+
+
+                        },2000)
+
+                        console.log("Jump!!!");
+                        jumpBlk();
+                    }
             }
-
-
             // if (currentPlayer === 'red' && square.player === 'red' ){
                 // console.log({row,col});
                 
