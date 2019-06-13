@@ -681,15 +681,26 @@ function checkForJump(){
 
                         toggleColor(board.children[pos-18].classList, 'light', 'neon');
                         
-                        setTimeout(function(){
-                            refreshBoard();
-                            let jumpedOpponent = gameBoard[rowOpponent][colOpponent].gridlocation;
-                            let opponentPiece = jumpedOpponent.removeChild(jumpedOpponent.firstChild);
+                        let jumpedOpponent = gameBoard[rowOpponent][colOpponent].gridLocation;
+                        let jumper = gameBoard[rowJumper][colJumper].gridLocation;
+                        let jumpTo = gameBoard[rowJumpTo][colJumpTo].gridLocation;
+                        jumpedOpponent.occupied = false;
+                        jumper.occupied = false;
+                        jumpTo.occupied = true;
+                        jumpedOpponent.player = 'none';
+                        jumper.player = 'none';
+                        jumpTo.player = 'red';
+                        
+                        
+                        let jumpedPiece = jumpedOpponent.removeChild(jumpedOpponent.firstChild);
+
+                        // let jumperPiece = jumper.removeChild(jumper.firtsChild);
+                        // jumper.gridLocation.appendChild(jumperPiece);
 
 
-
-                        },2000)
-
+                        refreshBoard();
+                        // setTimeout(function(jumpedOpponent){
+                        // },500)
                         console.log("Jump!!!");
                         jumpBlk();
                     }
