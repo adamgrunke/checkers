@@ -30,6 +30,10 @@ img {
     background-color: #991111
 }
 
+.neon {
+    background-color: greenyellow;
+}
+
 .dark {
     background-color: #332222
 }
@@ -86,6 +90,10 @@ button {
     background-color: #115555;
     color: gray;
     text-align: center;
+    
+}
+#testjumpred, #testjumpblk {
+    display: none;
 }
 
 #testbtndiv {

@@ -557,6 +557,7 @@ function highlightSelectedSquare(location){
 }
 
 function generateMoveOptions(square) {
+    // square -> e.target
     if (gameBoard[currentLocation[0]][currentLocation[1]].player === currentPlayer) {
 
         if (prevMove1 !== 0){
@@ -639,16 +640,16 @@ function togglePlayer(){
             opponent = 'blk'
         };
         refreshBoard();
-        refreshBoard();
+        refreshBoard(); // requires two calls to catch last move for some reason. 
         glowCurrentPlayer();
 }
 
 function checkForJump(){
-    let pos = 0;
+    
     for (let row in gameBoard){
         for (let col in gameBoard[row]){
             let square = gameBoard[row][col];
-            
+            let pos =Array.from(board.children).indexOf(square.gridLocation);
             // current player is red
             // if current player is (red || (red && crowned) && 
             // (player index position - 9 is occupied by opponent) &&
@@ -658,37 +659,42 @@ function checkForJump(){
             // remove current player image from player location and append to vacant position
             // remove image of opponent from opponent position. 
             // update positions appropriately with occupied true/false, player red/none
-
-            
-            // console.log(currentPlayer)
-            
-            // if (currentPlayer === 'red'){
-            //     console.log(pos)
-            //     rowJumper = Math.floor(pos / 8);
-            //     console.log(rowJumper)
-            //     rowOpponent = Math.floor((pos - 9) / 8);
-            //     console.log(rowOpponent)
-            //     rowJumpTo = Math.floor((pos - 18) / 8);
-            //     console.log(rowJumpTo)
-            //     colJumper = pos % 8;
-            //     console.log(colJumper)
-            //     colOpponent = (pos - 9) % 8;
-            //     console.log(colOpponent)
-            //     colJumpTo = (pos - 18) % 8;
-            //     console.log(colJumpTo)
+            if ((square.player === 'red')){
+                rowJumper = Math.floor(pos / 8);
+                rowOpponent = Math.floor((pos - 9) / 8);
+                rowJumpTo = Math.floor((pos - 18) / 8);
+                colJumper = pos % 8;
+                colOpponent = (pos - 9) % 8;
+                colJumpTo = (pos - 18) % 8;
                 
-            //     if ((square[rowOpponent][colOpponent].player === 'blk') &&
-            //         (square[rowJumpTo][colJumpTo].occupied === false)){
+                console.log({pos})
+                console.log({rowJumper, colJumper})
+                console.log({rowOpponent, colOpponent})
+                console.log({rowJumpTo, colJumpTo})
+                console.log(gameBoard[rowOpponent][colOpponent].player )
+                console.log(gameBoard[rowJumpTo][colJumpTo].occupied)
+                // if ((gameBoard[rowOpponent][colOpponent].player === 'blk') &&
+                //     (gameBoard[rowJumpTo][colJumpTo].occupied === false)){
 
-            //             console.log("Jump!!!");
-            //         }
+                //         console.log("Jump!!!");
+                //     }
+            }
+
+
+            // if (currentPlayer === 'red' && square.player === 'red' ){
+                // console.log({row,col});
+                
+
+                // if ((square[rowOpponent][colOpponent].player === 'blk') &&
+                //     (square[rowJumpTo][colJumpTo].occupied === false)){
+
+                //         console.log("Jump!!!");
+                //     }
             // }
             
-            pos++;
         }
     }
 }
-
 
 function glowCurrentPlayer() {
     for (let row in gameBoard){
