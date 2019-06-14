@@ -13,12 +13,25 @@ body {
     border: 5px solid darkslategray;
 
 }
+img {
+    /* height: 80%;
+    width: 80%; */
+    margin: auto;
+}
 
 .light, .dark {
 }
 .light {
     background-color:#661111;
 
+}
+
+.glow {
+    background-color: #991111
+}
+
+.neon {
+    background-color: greenyellow;
 }
 
 .dark {
@@ -77,6 +90,10 @@ button {
     background-color: #115555;
     color: gray;
     text-align: center;
+    
+}
+#testjumpred, #testjumpblk {
+    display: none;
 }
 
 #testbtndiv {
