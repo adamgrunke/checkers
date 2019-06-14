@@ -608,6 +608,7 @@ function generateMoveOptions(square) {
 }
 
 function moveGamePiece() {
+   
     // if previous square selected contained a currentPlayer piece AND
     // there are move options AND the current selected square is one of the move options THEN
     // remove the image from the previous square and add the image to the current square.
@@ -662,48 +663,64 @@ function checkForJump(){
             // remove current player image from player location and append to vacant position
             // remove image of opponent from opponent position. 
             // update positions appropriately with occupied true/false, player red/none
+            // UL = up & left UR = up & right DL = down & left DR = down & right
+
             if ((square.player === 'red')){
                 rowJumper =  'row' + (Math.floor(pos / 8));
-                rowOpponent = 'row' + (Math.floor((pos - 9) / 8));
-                rowJumpTo = 'row' + (Math.floor((pos - 18) / 8));
-                colJumper = 'col' + (pos % 8);
-                colOpponent = 'col' + ((pos - 9) % 8);
-                colJumpTo = 'col' + ((pos - 18) % 8);
+                rowOpponentUp = 'row' + (Math.floor((pos - 9) / 8));
+                rowJumpToUp = 'row' + (Math.floor((pos - 18) / 8));
                 
-                // console.log({pos})
-                // console.log({rowJumper, colJumper})
-                // console.log({rowOpponent, colOpponent})
-                // console.log({rowJumpTo, colJumpTo})
-                // console.log(gameBoard[rowOpponent][colOpponent].player )
-                // console.log(gameBoard[rowJumpTo][colJumpTo].occupied)
-                if ((gameBoard[rowOpponent][colOpponent].player === 'blk') &&
-                    (gameBoard[rowJumpTo][colJumpTo].occupied === false)){
+                colJumperUL = 'col' + (pos % 8);
+                colOpponentUL = 'col' + ((pos - 9) % 8);
+                colJumpToUL = 'col' + ((pos - 18) % 8);
+                colJumperUR = 'col' + (pos % 8);
+                colOpponentUR = 'col' + ((pos - 7) % 8);
+                colJumpToUR = 'col' + ((pos - 14) % 8);
+
+                if ((gameBoard[rowOpponentUp][colOpponentUL].player === 'blk') &&
+                    (gameBoard[rowJumpToUp][colJumpToUL].occupied === false)){
 
                         toggleColor(board.children[pos-18].classList, 'light', 'neon');
-                        
-                        let jumpedOpponent = gameBoard[rowOpponent][colOpponent].gridLocation;
-                        let jumper = gameBoard[rowJumper][colJumper].gridLocation;
-                        let jumpTo = gameBoard[rowJumpTo][colJumpTo].gridLocation;
+                        let jumpedOpponent = gameBoard[rowOpponentUp][colOpponentUL];
+                        let jumper = gameBoard[rowJumper][colJumperUL];
+                        let jumpTo = gameBoard[rowJumpToUp][colJumpToUL];
                         jumpedOpponent.occupied = false;
                         jumper.occupied = false;
                         jumpTo.occupied = true;
                         jumpedOpponent.player = 'none';
                         jumper.player = 'none';
                         jumpTo.player = 'red';
-                        
-                        
-                        let jumpedPiece = jumpedOpponent.removeChild(jumpedOpponent.firstChild);
-
-                        // let jumperPiece = jumper.removeChild(jumper.firtsChild);
-                        // jumper.gridLocation.appendChild(jumperPiece);
-
-
+                        setTimeout(function(){
+                            let jumpedPiece = jumpedOpponent.gridLocation.removeChild(jumpedOpponent.gridLocation.firstChild);
+                            let jumperPiece = jumper.gridLocation.removeChild(jumper.gridLocation.firstChild);
+                            jumpTo.gridLocation.appendChild(jumperPiece);
                         refreshBoard();
-                        // setTimeout(function(jumpedOpponent){
-                        // },500)
+                        },1000)
+                        console.log("Jump!!!");
+                        jumpBlk();
+                    } else if ((gameBoard[rowOpponentUp][colOpponentUR].player === 'blk') &&
+                    (gameBoard[rowJumpToUp][colJumpToUR].occupied === false)){
+
+                        toggleColor(board.children[pos-14].classList, 'light', 'neon');
+                        let jumpedOpponent = gameBoard[rowOpponentUp][colOpponentUR];
+                        let jumper = gameBoard[rowJumper][colJumperUR];
+                        let jumpTo = gameBoard[rowJumpToUp][colJumpToUR];
+                        jumpedOpponent.occupied = false;
+                        jumper.occupied = false;
+                        jumpTo.occupied = true;
+                        jumpedOpponent.player = 'none';
+                        jumper.player = 'none';
+                        jumpTo.player = 'red';
+                        setTimeout(function(){
+                            let jumpedPiece = jumpedOpponent.gridLocation.removeChild(jumpedOpponent.gridLocation.firstChild);
+                            let jumperPiece = jumper.gridLocation.removeChild(jumper.gridLocation.firstChild);
+                            jumpTo.gridLocation.appendChild(jumperPiece);
+                        refreshBoard();
+                        },1000)
                         console.log("Jump!!!");
                         jumpBlk();
                     }
+                    
             }
             // if (currentPlayer === 'red' && square.player === 'red' ){
                 // console.log({row,col});
