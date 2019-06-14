@@ -992,12 +992,15 @@ function generateMoveOptions(square) {
         let indexMoveOption1 = board.children[(rowMoveOption * 8) + colMoveOption1].classList;
         let indexMoveOption2 = board.children[(rowMoveOption * 8) + colMoveOption2].classList;
 
-        if ( (colMoveOption1 >= 0) &&
+        // (rowMoveOption >= 0) && (rowMoveOption <= 7) &&
+        if ( (colMoveOption1 >= 0) && 
             !((gameBoard["row" + rowMoveOption]['col' + colMoveOption1].occupied))) {
                 move1 = (rowMoveOption * 8) + colMoveOption1
                 toggleColor(indexMoveOption1, 'light', 'legal');
                 prevMove1 = indexMoveOption1
         }
+
+        // (rowMoveOption >= 0) && (rowMoveOption <= 7) &&
         if ( (colMoveOption2 <= 7) && 
         !((gameBoard["row" + rowMoveOption]['col' + colMoveOption2].occupied))) {
             // console.log(gameBoard["row" + rowMoveOption]['col' + colMoveOption2].player)
@@ -1268,6 +1271,7 @@ function reset(){
     }
     init();
     createBoard();
+    refreshBoard();
     refreshBoard();
     mainDisp.classList.remove('hidestartgame');
     mainDisp.classList.add("showstartgame");
