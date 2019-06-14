@@ -1040,6 +1040,7 @@ function moveGamePiece() {
 function togglePlayer(){
     // console.log('pre check for jump call')    
     checkForJump();
+    console.log('returned from jump check')
     if (currentPlayer === 'red') {
             currentPlayer = 'blk';
             opponent = 'red';
@@ -1123,8 +1124,9 @@ function checkForJump(){
                         },1000)
                         console.log("Jump!!!");
                         jumpBlk();
-                    } return;
-            }  
+                    } 
+                    return;
+            }  console.log(currentPlayer)
             
             
             // if ((square.player === 'blk')){
